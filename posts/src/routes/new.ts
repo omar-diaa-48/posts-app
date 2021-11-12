@@ -25,3 +25,5 @@ router.post(
 
     res.send(201).send(post)
 })
+
+export {router as newPostRouter};
