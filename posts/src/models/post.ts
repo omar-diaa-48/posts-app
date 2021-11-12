@@ -38,10 +38,11 @@ const postSchema = new mongoose.Schema({
     }
 })
 
-const Post = mongoose.model<PostDocument, PostModel>('Post', postSchema)
 
 postSchema.statics.build = (attributes:PostAttributes) => {
     return new Post(attributes);
 }
+
+const Post = mongoose.model<PostDocument, PostModel>('Post', postSchema)
 
 export default Post;
