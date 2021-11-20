@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 import { app } from './app';
 
+import dotenv from 'dotenv'
+dotenv.config();
+
 const start = async () => {
   console.log('Starting auth...');
   
