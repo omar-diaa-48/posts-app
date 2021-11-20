@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socialapp-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socialapp-auth
+  template:
+    metadata:
+      labels:
+        app: socialapp-auth
+    spec:
+      containers:
+        - name: socialapp-auth
+          image: omar48/socialapp-auth
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://socialapp-auth-mongo-srv:27017/socialapp-auth'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socialapp-auth-srv
+spec:
+  selector:
+    app: socialapp-auth
+  ports:
+    - name: socialapp-auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
